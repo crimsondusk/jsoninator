@@ -1,0 +1,4 @@
+[Project]
+Name=json
+Manager=KDevCMakeManager
+VersionControl=kdevgit
