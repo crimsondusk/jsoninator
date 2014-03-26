@@ -198,9 +198,13 @@ String Variant::describe() const
 		NUMERIC_STRINGREP (UnsignedInt,		uint,	u)
 		NUMERIC_STRINGREP (UnsignedShort,	uint,	u)
 		NUMERIC_STRINGREP (UnsignedLong,	ulong,	lu)
-		NUMERIC_STRINGREP (Float,			double,	f)
-		NUMERIC_STRINGREP (Double,			double,	f)
 		NUMERIC_STRINGREP (Pointer,			void*,	p)
+
+		case VARTYPE_Float:
+			return String::fromNumber (asFloat());
+
+		case VARTYPE_Double:
+			return String::fromNumber (asDouble());
 
 		case VARTYPE_List:
 		{

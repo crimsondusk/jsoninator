@@ -472,16 +472,26 @@ String String::fromNumber (ulong a)
 //
 String String::fromNumber (float a)
 {
-	char buf[32];
-	::sprintf (buf, "%f", static_cast<double> (a));
-	return String (buf);
+	return fromNumber ((double) a);
 }
 
 // =============================================================================
 //
 String String::fromNumber (double a)
 {
+	setlocale (LC_ALL, "C");
 	char buf[32];
-	::sprintf (buf, "%f", a);
-	return String (buf);
+	::sprintf (buf, "%.12f", a);
+	String returnval (buf);
+
+	if (returnval.firstIndexOf (".") != -1)
+	{
+		while (returnval.endsWith ("0"))
+			returnval.removeFromEnd (1);
+
+		if (returnval.endsWith ("."))
+			returnval.removeFromEnd (1);
+	}
+
+	return returnval;
 }
