@@ -233,8 +233,11 @@ bool LexerScanner::getNextToken()
 		{
 			m_tokenText += ".";
 
-			while (isdigit (*(++m_position)))
-				m_tokenText += *m_position;
+			if (isdigit (*(++m_position)) == false)
+				error ("invalid number, expected a digit after decimal stop");
+
+			while (isdigit (*m_position))
+				m_tokenText += *m_position++;
 		}
 
 		m_tokenType = TK_Number;

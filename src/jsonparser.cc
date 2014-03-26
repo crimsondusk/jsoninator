@@ -54,6 +54,10 @@ JSONObject* JSONParser::parseObject()
 		if (obj->isEmpty() == false)
 			m_lexer->mustGetNext (TK_Comma);
 
+		// Possibly there's a misplaced comma before the closing '}'.
+		if (m_lexer->next (TK_BraceEnd))
+			error ("unexpected '}', did you forget a comma before the closing '}'?");
+
 		m_lexer->mustGetNext (TK_String);
 		String propertyName = m_lexer->token()->text;
 
@@ -117,10 +121,14 @@ Variant JSONParser::parseValue()
 			return result;
 		}
 
+		case TK_BraceEnd:
+		case TK_BracketEnd:
+			error ("unexpected '%1'", propertyValue);
+
 		badvalue:
 		default:
-			error ("bad JSON value: expected a string, number, array, object, "
-				"true, false or null");
+			error ("bad JSON value '%1': expected a string, number, array, "
+				"object, true, false or null", propertyValue);
 	}
 
 	error ("");

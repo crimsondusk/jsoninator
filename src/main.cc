@@ -36,7 +36,6 @@ static String g_currentFile = "your face";
 
 int main()
 {
-	/*
 	JSONObject* obj = new JSONObject;
 	VariantList values;
 	values << 5;
@@ -52,11 +51,20 @@ int main()
 	if (obj->saveToFile ("blargh.json") == false)
 		printTo (stderr, "failed to save");
 
-	return 0;
-	*/
+	/*
 
 	JSONObject* obj = JSONObject::loadFromFile ("Housinator.json");
+
+	if (obj == null)
+	{
+		printTo (stderr, "error: %1\n", JSONObject::loadError());
+		return 1;
+	}
+
 	obj->saveToFile ("Housinator2.json");
+	
+	*/
+
 	return 0;
 }
 
